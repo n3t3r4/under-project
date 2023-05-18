@@ -3,15 +3,19 @@ import "./App.css";
 import { LoginForm } from "./components/LoginForm";
 import { Home } from "./routes/Home";
 import { Dashboard } from "./routes/Dashboard";
+import { AppBar } from "./components/AppBar";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <AppBar />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
