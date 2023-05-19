@@ -1,11 +1,11 @@
-import sql, { createPool, DatabasePool } from "slonik";
+import { createPool, DatabasePool } from "slonik";
+
+require("dotenv").config();
 
 let pool: DatabasePool;
 export async function getPool() {
   if (pool === undefined) {
-    pool = await createPool(
-      "postgres://aluno:infnet123@142.93.174.194/jose_leffa"
-    );
+    pool = await createPool(`${process.env.DB_PATH}`);
   }
   return pool;
 }

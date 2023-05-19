@@ -11,7 +11,7 @@ export function Dashboard() {
     <>
       <div className="flex flex-row m-10 shadow-lg rounded-xl">
         <div className="bg-slate-300 flex-2 rounded-l-xl min-h-[1024px]">
-          <ul className="p-3 space-y-8">
+          <ul className="px-3 py-10 space-y-8">
             <li className="border-b-8 hover:text-white">
               <button
                 onClick={() => {
