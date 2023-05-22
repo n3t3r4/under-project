@@ -1,5 +1,11 @@
 import express, { Request, Response } from "express";
-import { conteudoType, createConteudo, findConteudo } from "./service";
+import {
+  conteudoType,
+  createConteudo,
+  deleteConteudo,
+  findConteudo,
+  getContentByClientID,
+} from "./service";
 
 export const controllerConteudo = express.Router();
 
@@ -17,6 +23,19 @@ let conteudoTeste: conteudoType = {
   status: 1,
 };
 controllerConteudo.post("/", async (req: Request, res: Response) => {
-  const createConteudos = await createConteudo(conteudoTeste);
-  res.status(200).json(createConteudos);
+  const newConteudo = req.body;
+  const createConteudos = await createConteudo(newConteudo);
+  res.status(200).json({ success: true });
+});
+
+controllerConteudo.delete("/:id", async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const deleteContent = await deleteConteudo(id);
+  res.status(200).json({ sucess: true });
+});
+
+controllerConteudo.get("/clientes/:id", async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const contentByClientID = await getContentByClientID(id);
+  res.status(200).json(contentByClientID.rows);
 });

@@ -12,7 +12,7 @@ export function Dashboard() {
       <div className="flex flex-row m-10 shadow-lg rounded-xl">
         <div className="bg-slate-300 flex-2 rounded-l-xl min-h-[1024px]">
           <ul className="px-3 py-10 space-y-8">
-            <li className="border-b-8 hover:text-white">
+            <li className="border-b-8 hover:text-white hover:shadow-xl">
               <button
                 onClick={() => {
                   setBoard(<Schedules />);
@@ -22,7 +22,7 @@ export function Dashboard() {
               </button>
             </li>
 
-            <li className="border-b-8 hover:text-white">
+            <li className="border-b-8 hover:text-white hover:shadow-xl">
               <button
                 onClick={() => {
                   setBoard(<Clients />);
@@ -32,7 +32,7 @@ export function Dashboard() {
               </button>
             </li>
 
-            <li className="border-b-8 hover:text-white">
+            <li className="border-b-8 hover:text-white hover:shadow-xl">
               <button
                 onClick={() => {
                   setBoard(<Config />);
@@ -42,7 +42,7 @@ export function Dashboard() {
               </button>
             </li>
 
-            <li className="border-b-8 hover:text-white">
+            <li className="border-b-8 hover:text-white hover:shadow-xl">
               <Link to="/">Sair</Link>
             </li>
           </ul>

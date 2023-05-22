@@ -1,1 +1,11 @@
-POST  http://localhost:8080/conteudo
+POST  http://localhost:8080/conteudo 
+Content-type: application/json
+
+{
+  "agencia_id": 1,
+  "cliente_id": 1,
+  "titulo": "teste titulo rest 4",
+  "conteudo_post": "teste rest 4",
+  "data_publi": "2023-05-23",
+  "status": 1
+} 
