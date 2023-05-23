@@ -5,7 +5,7 @@ import {
   deleteConteudo,
   findConteudo,
   getContentByClientID,
-} from "./service";
+} from "./contentService";
 
 export const controllerConteudo = express.Router();
 

@@ -38,7 +38,10 @@ export async function deleteConteudo(id: number) {
 export async function getContentByID(id: number) {
   const pool = await getPool();
   const getContentByID = await pool.query(
-    sql.unsafe`SELECT * FROM conteudo WHERE id=${id}`
+    sql.unsafe`SELECT *
+    FROM conteudo
+    JOIN agencia ON conteudo.agencia_id = agencia.id
+    WHERE conteudo.id = ${id};`
   );
   return getContentByID;
 }
@@ -46,7 +49,11 @@ export async function getContentByID(id: number) {
 export async function getContentByClientID(clienteID: number) {
   const pool = await getPool();
   const getContentByClientID = await pool.query(sql.unsafe`
-  SELECT * FROM conteudo WHERE cliente_id=${clienteID} ORDER BY id DESC;
+  SELECT *
+  FROM conteudo
+  JOIN cliente ON conteudo.cliente_id = cliente.id
+  WHERE cliente_id = ${clienteID}
+  ORDER BY conteudo.id;
   `);
   return getContentByClientID;
 }

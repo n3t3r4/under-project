@@ -6,6 +6,8 @@ import { Dashboard } from "./routes/Dashboard";
 import { AppBar } from "./components/AppBar";
 import { NewContent } from "./routes/NewContent";
 import { DeleteContent } from "./routes/DeleteContent";
+import { NewClient } from "./routes/NewClient";
+import { DeleteClient } from "./routes/DeleteClient";
 
 function App() {
   return (
@@ -13,10 +15,12 @@ function App() {
       <AppBar />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/new" element={<NewContent />} />
-          <Route path="/delete" element={<DeleteContent />} />
+          <Route path="/new-content" element={<NewContent />} />
+          <Route path="/delete-content" element={<DeleteContent />} />
+          <Route path="/new-client" element={<NewClient />} />
+          <Route path="/delete-client" element={<DeleteClient />} />
         </Routes>
       </BrowserRouter>
     </>

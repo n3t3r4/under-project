@@ -34,6 +34,7 @@ export function Schedules() {
     } else {
       getConteudo(clienteID);
     }
+    return setConteudo(conteudos);
   }, [clienteID]);
 
   const clientsInfo = [
@@ -49,6 +50,10 @@ export function Schedules() {
       id: 2,
       email: "2@cliente.com",
     },
+    {
+      id: 6,
+      email: "6@cliente.com",
+    },
   ];
 
   return (
@@ -62,7 +67,6 @@ export function Schedules() {
             valueField="id"
             onChange={(value) => {
               setClinteID(value[0].id);
-              console.log(clienteID);
             }}
             values={[]}
             placeholder="Cliente"
@@ -87,12 +91,12 @@ export function Schedules() {
           })}
         </ul>
         <div className="flex flex-row gap-2 ">
-          <Link to="/new">
+          <Link to="/new-content">
             <button className="px-2 bg-slate-700 m-6 shadow-lg">
               Adicionar
             </button>
           </Link>
-          <Link to="/delete">
+          <Link to="/delete-content">
             <button className="px-2 bg-slate-700 my-6 shadow-lg">
               Remover
             </button>
