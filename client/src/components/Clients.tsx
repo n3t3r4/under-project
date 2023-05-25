@@ -9,7 +9,7 @@ type clienteType = {
   agencia_id: number;
 };
 
-const clientes: clienteType[] = [];
+export const clientes: clienteType[] = [];
 
 export function Clients() {
   const [clientesList, setClientes] = useState(clientes);

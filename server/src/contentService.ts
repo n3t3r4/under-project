@@ -1,11 +1,15 @@
 import { getPool } from "./database";
 import { sql } from "slonik";
 
-export async function findConteudo() {
+export async function findConteudo(
+  offset: number | null = 0,
+  limit: number | null = null
+) {
   const pool = await getPool();
-  const conteudo = await pool.many(sql.unsafe`
-    select * from conteudo order by id desc;
-    `);
+  let conteudo = await pool.many(sql.unsafe`
+  select * from conteudo order by id desc offset ${offset} limit ${limit};
+  `);
+
   return conteudo;
 }
 
