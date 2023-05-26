@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
-import { controllerConteudo } from "./src/contentController";
+import { controllerConteudo } from "./src/content.controller";
 import * as dotenv from "dotenv";
-import { controllerClientes } from "./src/clientController";
+import { controllerClientes } from "./src/client.controller";
 dotenv.config();
 
 const app = express();

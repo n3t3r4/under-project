@@ -14,15 +14,28 @@ type conteudoType = {
   status: number;
   agencia_id: number;
   cliente_id: number;
+  full_count: number;
 };
 
 const conteudos: conteudoType[] = [];
+
+const orderOptions = [
+  {
+    value: "desc",
+    label: "Mais Recentes",
+  },
+  {
+    value: "asc",
+    label: "Mais Antigos",
+  },
+];
 
 export function Schedules() {
   const [conteudo, setConteudo] = useState(conteudos);
   const [clientesList, setClientes] = useState(clientes);
   const [clienteID, setClinteID] = useState(0);
   const [searchInput, setSearchInput] = useState("");
+  const [order, setOrder] = useState("desc");
 
   const limit = 5;
   const [offset, setOffset] = useState(0);
@@ -30,7 +43,7 @@ export function Schedules() {
   async function getConteudo(id?: number, search?: string) {
     if (id === undefined) {
       const { data } = await api.get(
-        `/conteudo/?offset=${offset}&limit=${limit}`
+        `/conteudo/?offset=${offset}&limit=${limit}&order=${order}`
       );
       setConteudo(data);
     } else {
@@ -45,7 +58,7 @@ export function Schedules() {
       getConteudo(clienteID);
     }
     return setConteudo(conteudos);
-  }, [clienteID, offset]);
+  }, [clienteID, offset, order]);
 
   async function getClientes() {
     const { data } = await api.get("/clientes");
@@ -55,29 +68,6 @@ export function Schedules() {
   useEffect(() => {
     getClientes();
   }, []);
-
-  const clientsInfo = [
-    {
-      id: 0,
-      email: "Clientes",
-    },
-    {
-      id: 1,
-      email: "1@cliente.com",
-    },
-    {
-      id: 2,
-      email: "2@cliente.com",
-    },
-    {
-      id: 6,
-      email: "6@cliente.com",
-    },
-    {
-      id: 8,
-      email: "8@cliente.com",
-    },
-  ];
 
   return (
     <>
@@ -102,7 +92,6 @@ export function Schedules() {
               setSearchInput(data.target.value);
             }}
             placeholder="Search..."
-            key={0}
           />
           <button
             className="ml-4 p-3 rounded-xl bg-slate-200"
@@ -121,6 +110,19 @@ export function Schedules() {
           >
             <FcSearch />
           </button>
+        </div>
+        <div className="pb-4">
+          <Select
+            options={orderOptions}
+            labelField="label"
+            valueField="value"
+            onChange={(item) => {
+              setOrder(item[0].value);
+            }}
+            values={[]}
+            placeholder="Mais Recentes"
+            className="text-slate-600 bg-white"
+          />
         </div>
         <ul className="min-h-[610px]">
           {conteudo.map((item) => {
@@ -156,9 +158,26 @@ export function Schedules() {
           <button
             className="px-2 text-slate-700 bg-white my-6 shadow-lg"
             onClick={() => {
-              if (offset <= 10) {
-                setOffset(offset + 5);
+              let fullCount = conteudo[0].full_count;
+
+              if (offset <= fullCount - 5) {
+                let diference = fullCount - offset;
+                if (diference >= 5) {
+                  setOffset(offset + 5);
+                } else {
+                  setOffset(offset + diference);
+                }
               }
+
+              // for (let i = 0; offset <= fullCount; i++) {
+              //   setOffset(offset + 5);
+              // }
+
+              // if (offset <= conteudo[0].full_count - 5) {
+              //   console.log();
+              //   console.log(conteudo);
+              //   setOffset(offset + 5);
+              // }
             }}
           >
             Próxima Pág

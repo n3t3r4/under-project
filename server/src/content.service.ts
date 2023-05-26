@@ -1,13 +1,31 @@
 import { getPool } from "./database";
 import { sql } from "slonik";
-
-export async function findConteudo(
+require("dotenv").config();
+export async function findConteudoDesc(
   offset: number | null = 0,
   limit: number | null = null
 ) {
   const pool = await getPool();
   let conteudo = await pool.many(sql.unsafe`
-  select * from conteudo order by id desc offset ${offset} limit ${limit};
+  SELECT *, count(*) OVER() AS full_count FROM conteudo
+  ORDER  BY id DESC
+  OFFSET ${offset}
+  LIMIT  ${limit};
+  `);
+
+  return conteudo;
+}
+
+export async function findConteudoAsc(
+  offset: number | null = 0,
+  limit: number | null = null
+) {
+  const pool = await getPool();
+  let conteudo = await pool.many(sql.unsafe`
+  SELECT *, count(*) OVER() AS full_count FROM conteudo
+  ORDER  BY id ASC
+  OFFSET ${offset}
+  LIMIT  ${limit};
   `);
 
   return conteudo;

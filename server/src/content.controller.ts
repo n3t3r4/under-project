@@ -3,22 +3,28 @@ import {
   conteudoType,
   createConteudo,
   deleteConteudo,
-  findConteudo,
+  findConteudoDesc,
+  findConteudoAsc,
   getContentByClientID,
-} from "./contentService";
+} from "./content.service";
 
 export const controllerConteudo = express.Router();
 
 controllerConteudo.get("/", async (req: Request, res: Response) => {
   const offset = req.query.offset ? Number(req.query.offset) : null;
   const limit = req.query.limit ? Number(req.query.limit) : null;
-  const conteudos = await findConteudo(offset, limit);
+  const order = req.query.order;
+  const conteudos =
+    order === undefined || order === "desc"
+      ? await findConteudoDesc(offset, limit)
+      : await findConteudoAsc(offset, limit);
+
   res.status(200).json(conteudos);
 });
 
 controllerConteudo.get("/search", async (req: Request, res: Response) => {
   const searchContent = req.query.search;
-  const conteudos = await findConteudo();
+  const conteudos = await findConteudoDesc();
   /* const searched = conteudos.filter((item) => item.conteudo === searchContent); */
   const searched = conteudos.filter(({ conteudo_post }) => {
     return conteudo_post == searchContent;

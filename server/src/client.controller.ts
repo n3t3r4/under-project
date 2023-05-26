@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { createCliente, deleteCliente, findClientes } from "./clientService";
+import { createCliente, deleteCliente, findClientes } from "./client.service";
 
 export const controllerClientes = express.Router();
 
