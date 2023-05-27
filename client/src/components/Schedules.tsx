@@ -88,6 +88,7 @@ export function Schedules() {
         </div>
         <div className="my-4 text-black">
           <InputText
+            name="search"
             onChange={(data: any) => {
               setSearchInput(data.target.value);
             }}
