@@ -25,7 +25,6 @@ controllerConteudo.get("/", async (req: Request, res: Response) => {
 controllerConteudo.get("/search", async (req: Request, res: Response) => {
   const searchContent = req.query.search;
   const conteudos = await findConteudoDesc();
-  /* const searched = conteudos.filter((item) => item.conteudo === searchContent); */
   const searched = conteudos.filter(({ conteudo_post }) => {
     return conteudo_post == searchContent;
   });

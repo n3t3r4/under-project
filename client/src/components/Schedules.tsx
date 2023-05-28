@@ -33,7 +33,7 @@ const orderOptions = [
 export function Schedules() {
   const [conteudo, setConteudo] = useState(conteudos);
   const [clientesList, setClientes] = useState(clientes);
-  const [clienteID, setClinteID] = useState(0);
+  const [clienteID, setClienteID] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const [order, setOrder] = useState("desc");
 
@@ -79,7 +79,7 @@ export function Schedules() {
             labelField="email"
             valueField="id"
             onChange={(value) => {
-              setClinteID(value[0].id);
+              setClienteID(value[0].id);
             }}
             values={[]}
             placeholder="Cliente"

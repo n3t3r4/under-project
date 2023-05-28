@@ -30,19 +30,3 @@ export async function deleteCliente(id: number) {
   );
   return deleteCliente;
 }
-/* 
-export async function getContentByID(id: number) {
-  const pool = await getPool();
-  const getContentByID = await pool.query(
-    sql.unsafe`SELECT * FROM conteudo WHERE id=${id}`
-  );
-  return getContentByID;
-}
-
-export async function getContentByClientID(clienteID: number) {
-  const pool = await getPool();
-  const getContentByClientID = await pool.query(sql.unsafe`
-  SELECT * FROM conteudo WHERE cliente_id=${clienteID} ORDER BY id DESC;
-  `);
-  return getContentByClientID;
-} */

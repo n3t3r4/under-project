@@ -19,10 +19,3 @@ controllerClientes.delete("/:id", async (req: Request, res: Response) => {
   const deleteClientes = await deleteCliente(id);
   res.status(200).json({ sucess: true });
 });
-/*
-controllerClientes.get("/clientes/:id", async (req: Request, res: Response) => {
-  const id = Number(req.params.id);
-  const contentByClientID = await getContentByClientID(id);
-  res.status(200).json(contentByClientID.rows);
-});
- */

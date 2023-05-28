@@ -32,8 +32,6 @@ export function NewClient() {
     },
   });
 
-  const disabled = zorm.validation?.success === false;
-
   return (
     <>
       <div>
@@ -68,18 +66,6 @@ export function NewClient() {
             className={`bg-white rounded-xl cursor-pointer ${isLoading}`}
             type="submit"
             value="enviar"
-            // onClick={async (event) => {
-            //   setIsLoading("cursor-wait opacity-25");
-            //   const post = await api
-            //     .post("/clientes", {
-            //       ...newCliente,
-            //       agencia_id: 1,
-            //     })
-            //     .then(() => {
-            //       setIsLoading("");
-            //       redirect("/dashboard");
-            //     });
-            // }}
           >
             Enviar
           </button>
