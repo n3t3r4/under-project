@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model agencia {
+  id       Int        @id @default(autoincrement())
+  email    String?    @db.VarChar(255)
+  senha    String?    @db.VarChar(255)
+  cliente  cliente[]
+  conteudo conteudo[]
+}
+
+model carros {
+  id           Int       @id @default(autoincrement())
+  marca        String?   @db.VarChar(255)
+  modelo       String?   @db.VarChar(255)
+  ano          Int?
+  proprietario Int?
+  usuarios     usuarios? @relation(fields: [proprietario], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cliente {
+  id         Int        @id @default(autoincrement())
+  email      String?    @db.VarChar(255)
+  senha      String?    @db.VarChar(255)
+  agencia_id Int?
+  agencia    agencia?   @relation(fields: [agencia_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  conteudo   conteudo[]
+}
+
+model conteudo {
+  id            Int       @id @default(autoincrement())
+  titulo        String?   @db.VarChar(255)
+  conteudo_post String?   @db.VarChar(255)
+  data_publi    DateTime? @db.Date
+  status        Int?
+  agencia_id    Int?
+  cliente_id    Int?
+  agencia       agencia?  @relation(fields: [agencia_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  cliente       cliente?  @relation(fields: [cliente_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model usuarios {
+  id        Int      @id @default(autoincrement())
+  nome      String?  @db.VarChar(255)
+  sobrenome String?  @db.VarChar(255)
+  carros    carros[]
+}

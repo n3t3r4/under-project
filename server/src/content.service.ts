@@ -2,27 +2,27 @@ import { Service } from "typedi";
 import { getPool } from "./database";
 import { sql } from "slonik";
 
-// export async function findConteudo(
-//   offset: number | null = 0,
-//   limit: number | null = null,
-//   order: string = "desc"
-// ) {
-//   const sqlDirection =
-//     order.toLowerCase() === "desc" ? sql.unsafe`desc` : sql.unsafe`asc`;
+export async function findConteudo(
+  offset: number | null = 0,
+  limit: number | null = null,
+  order: string = "desc"
+) {
+  const sqlDirection =
+    order.toLowerCase() === "desc" ? sql.unsafe`desc` : sql.unsafe`asc`;
 
-//   const sqlOrderBy = sql.unsafe`order by id ${sqlDirection}`;
+  const sqlOrderBy = sql.unsafe`order by id ${sqlDirection}`;
 
-//   console.log(order);
-//   const pool = await getPool();
-//   let conteudo = await pool.many(sql.unsafe`
-//   SELECT *, count(*) OVER() AS full_count FROM conteudo
-//   ${sqlOrderBy}
-//   OFFSET ${offset}
-//   LIMIT  ${limit};
-//   `);
+  // console.log(order);
+  const pool = await getPool();
+  let conteudo = await pool.many(sql.unsafe`
+  SELECT *, count(*) OVER() AS full_count FROM conteudo
+  ${sqlOrderBy}
+  OFFSET ${offset}
+  LIMIT  ${limit};
+  `);
 
-//   return conteudo;
-// }
+  return conteudo;
+}
 
 export async function createConteudo(conteudo: conteudoType) {
   const pool = await getPool();
@@ -73,18 +73,18 @@ export type conteudoType = {
   cliente_id: number;
 };
 
-//OOP
-@Service()
-export class contentServiceClass {
-  async findConteudo() {
-    const pool = await getPool();
-    let conteudo = await pool.many(sql.unsafe`SELECT * FROM conteudo`);
-    return conteudo;
-  }
-}
+// //OOP
+// @Service()
+// export class contentServiceClass {
+//   async findConteudo() {
+//     const pool = await getPool();
+//     let conteudo = await pool.many(sql.unsafe`SELECT * FROM conteudo`);
+//     return conteudo;
+//   }
+// }
 
-export async function findConteudo2() {
-  const pool = await getPool();
-  let conteudo = await pool.many(sql.unsafe`SELECT * FROM conteudo`);
-  return conteudo;
-}
+// export async function findConteudo2() {
+//   const pool = await getPool();
+//   let conteudo = await pool.many(sql.unsafe`SELECT * FROM conteudo`);
+//   return conteudo;
+// }
