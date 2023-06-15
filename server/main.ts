@@ -7,6 +7,7 @@ import { controllerClientes } from "./src/client.controller";
 import { useContainer } from "class-validator";
 import { createExpressServer } from "routing-controllers";
 import { PrismaClient } from "@prisma/client";
+import { controllerAuth } from "./src/auth.controller";
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/conteudo", controllerConteudo);
 app.use("/clientes", controllerClientes);
+app.use("/login", controllerAuth);
 
 app.listen(8080, () => {
   console.log("server running");
@@ -27,10 +29,10 @@ app.listen(8080, () => {
 // });
 
 //PRISMA TESTE
-const prisma = new PrismaClient();
-async function getContent() {
-  const response = await prisma.conteudo.findMany();
-  console.log(response);
-  return;
-}
-getContent();
+// const prisma = new PrismaClient();
+// async function getContent() {
+//   const response = await prisma.conteudo.findMany();
+//   console.log(response);
+//   return;
+// }
+// getContent();

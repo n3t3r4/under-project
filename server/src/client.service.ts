@@ -1,12 +1,9 @@
-import { getPool } from "./database";
-import { sql } from "slonik";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 export async function findClientes() {
-  const pool = await getPool();
-  const clientes = await pool.many(sql.unsafe`
-      select * from cliente where agencia_id=1 order by id desc;
-    `);
-  return clientes;
+  const response = await prisma.cliente.findMany();
+  return response;
 }
 
 export type clienteType = {
@@ -16,17 +13,21 @@ export type clienteType = {
 };
 
 export async function createCliente(conteudo: clienteType) {
-  const pool = await getPool();
-  const createCliente =
-    await pool.query(sql.unsafe`INSERT INTO cliente (email, senha, agencia_id)
-  VALUES (${conteudo.email}, ${conteudo.senha}, ${conteudo.agencia_id});`);
-  return createCliente;
+  const response = await prisma.cliente.create({
+    data: {
+      email: conteudo.email,
+      senha: conteudo.senha,
+      agencia_id: conteudo.agencia_id,
+    },
+  });
+  return response;
 }
 
 export async function deleteCliente(id: number) {
-  const pool = await getPool();
-  const deleteCliente = await pool.query(
-    sql.unsafe`DELETE FROM cliente WHERE id=${id};`
-  );
-  return deleteCliente;
+  const response = await prisma.cliente.delete({
+    where: {
+      id: id,
+    },
+  });
+  return response;
 }

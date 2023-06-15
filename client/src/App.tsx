@@ -15,7 +15,7 @@ function App() {
       <AppBar />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<LoginForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/new-content" element={<NewContent />} />
           <Route path="/delete-content" element={<DeleteContent />} />

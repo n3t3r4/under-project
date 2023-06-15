@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { api } from "../api";
+import { log } from "console";
+import { setAuthtoken } from "../auth";
+
+type emailPassword = {
+  email: string;
+  senha: string;
+};
 
 export function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [senha, setPassword] = useState("");
+
+  async function login({ email, senha }: emailPassword) {
+    const connect = await api.post("/login", { email, senha });
+    return connect.data;
+  }
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -10,17 +27,31 @@ export function LoginForm() {
             <input
               className="m-2 pl-3 rounded-lg  outline-none"
               type="email"
+              value={email}
+              onChange={(value) => {
+                setEmail(value.target.value);
+              }}
             ></input>
             <input
               className="m-2 pl-3 rounded-lg  outline-none"
               type="password"
+              value={senha}
+              onChange={(value) => {
+                setPassword(value.target.value);
+              }}
             ></input>
-            <Link
-              to="/dashboard"
+            <button
               className="bg-slate-50 rounded-lg mx-8 my-2 flex justify-center"
+              onClick={(event) => {
+                event.preventDefault();
+                login({ email, senha }).then((data) => {
+                  setAuthtoken(data.jwt);
+                  console.log(localStorage.getItem("token"));
+                });
+              }}
             >
-              <button>Login</button>
-            </Link>
+              Login
+            </button>
           </form>
         </div>
       </div>

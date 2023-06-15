@@ -1,12 +1,19 @@
 import { Service } from "typedi";
 import { getPool } from "./database";
 import { sql } from "slonik";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function findConteudo(
   offset: number | null = 0,
   limit: number | null = null,
   order: string = "desc"
 ) {
+  // const response = await prisma.conteudo.findMany({
+
+  // })
+
   const sqlDirection =
     order.toLowerCase() === "desc" ? sql.unsafe`desc` : sql.unsafe`asc`;
 
@@ -25,6 +32,18 @@ export async function findConteudo(
 }
 
 export async function createConteudo(conteudo: conteudoType) {
+  // const response = await prisma.conteudo.create({
+  //   data: {
+  //     titulo: conteudo.titulo,
+  //     conteudo_post: conteudo.conteudo_post,
+  //     data_publi: conteudo.data_publi,
+  //     status: conteudo.status,
+  //     agencia_id: conteudo.agencia_id,
+  //     cliente_id: conteudo.cliente_id,
+  //   },
+  // });
+  // return response;
+
   const pool = await getPool();
   const createConteudo =
     await pool.query(sql.unsafe`INSERT INTO conteudo (titulo, conteudo_post, data_publi, status, agencia_id, cliente_id)
