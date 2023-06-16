@@ -7,6 +7,6 @@ export const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = getAuthToken();
-  config.headers.Authorization = `${token}`;
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 });

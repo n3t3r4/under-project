@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { api } from "../api";
 import { log } from "console";
 import { setAuthtoken } from "../auth";
@@ -9,6 +9,8 @@ type emailPassword = {
   senha: string;
 };
 
+const token = localStorage.getItem("token") ?? " ";
+
 export function LoginForm() {
   const [email, setEmail] = useState("");
   const [senha, setPassword] = useState("");
@@ -17,6 +19,24 @@ export function LoginForm() {
     const connect = await api.post("/login", { email, senha });
     return connect.data;
   }
+
+  // async function checkLogin(token: string) {
+  //   const connect = await api.get("/login", {
+  //     headers: { Authorization: token },
+  //   });
+  //   console.log(connect.data.data.email);
+  //   console.log(connect.data.data.senha);
+  // }
+
+  // useEffect(() => {
+  //   const check = checkLogin(token);
+  //   if (check === null) {
+  //     localStorage.removeItem("token");
+  //     return alert("faça o login novamente");
+  //   } else {
+  //     redirect("/dashboard");
+  //   }
+  // }, []);
 
   return (
     <>

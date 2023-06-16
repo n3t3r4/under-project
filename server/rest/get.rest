@@ -1,7 +1,2 @@
 GET  http://localhost:8080/login/
-Content-Type: application/json
-
-{
-    "email": "1@agencia.com",
-    "senha": "senha"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImVtYWlsIjoiMUBhZ2VuY2lhLmNvbSIsInNlbmhhIjoic2VuaGEifSwiaWF0IjoxNjg2OTQ3NjIzLCJleHAiOjE2ODY5NTEyMjN9.KfkMnIJ39fGkfEmqMnJrhF4WWRrynj7txzQMX1H-JXw
