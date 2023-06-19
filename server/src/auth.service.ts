@@ -21,7 +21,7 @@ export async function findAgenciaByEmailPassword({
     },
   });
   const user_data = { email: email, senha: senha };
-  const jwt = JWT.sign({ data: user_data }, jwtSecret, { expiresIn: "1h" });
+  const jwt = JWT.sign({ data: user_data }, jwtSecret, { expiresIn: "1m" });
   const response =
     checking === null
       ? { sucess: false, jwt: null }
@@ -29,7 +29,13 @@ export async function findAgenciaByEmailPassword({
   return response;
 }
 
-export function readToken(token: string): JWT.JwtPayload {
-  const user_data = JWT.verify(token, jwtSecret);
-  return user_data as any;
+export function readToken(token: string): JWT.JwtPayload | null {
+  try {
+    const user_data = JWT.verify(token, jwtSecret);
+    console.log("auth sucess");
+    return user_data as any;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }

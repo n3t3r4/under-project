@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Board } from "../components/Board";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Schedules } from "../components/Schedules";
 import { Clients } from "../components/Clients";
 import { Config } from "../components/Config";
+import { currentUser } from "../components/LoginForm";
+
+const token = localStorage.getItem("token") ?? " ";
 
 export function Dashboard() {
-  let [currentBoard, setBoard] = useState(<Schedules />);
+  const redirect = useNavigate();
+  useEffect(() => {
+    if (token !== " ") {
+      redirect("/");
+    }
+    setUserName(currentUser);
+  }, []);
+  const [currentBoard, setBoard] = useState(<Schedules />);
+  const [userName, setUserName] = useState(currentUser);
   return (
     <>
       <div className="flex flex-row m-10 shadow-lg rounded-xl">
         <div className="bg-slate-300 flex-2 rounded-l-xl min-h-[1024px]">
           <ul className="px-3 py-10 space-y-8">
+            <span className="text-sm">Logado como: {userName}</span>
             <li className="border-b-8 hover:text-white hover:shadow-xl">
               <button
                 onClick={() => {
@@ -43,7 +55,13 @@ export function Dashboard() {
             </li>
 
             <li className="border-b-8 hover:text-white hover:shadow-xl">
-              <Link to="/">Sair</Link>
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                }}
+              >
+                <Link to="/">Sair</Link>
+              </button>
             </li>
           </ul>
         </div>
