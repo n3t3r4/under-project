@@ -3,6 +3,7 @@ import * as JWT from "jsonwebtoken";
 
 require("dotenv").config();
 const jwtSecret = process.env.JWT_SECRET ?? "";
+const prisma = new PrismaClient();
 
 type emailPassword = {
   email: string;
@@ -13,7 +14,6 @@ export async function findAgenciaByEmailPassword({
   email,
   senha,
 }: emailPassword) {
-  const prisma = new PrismaClient();
   const checking = await prisma.agencia.findFirst({
     where: {
       email,
@@ -32,10 +32,10 @@ export async function findAgenciaByEmailPassword({
 export function readToken(token: string): JWT.JwtPayload | null {
   try {
     const user_data = JWT.verify(token, jwtSecret);
-    console.log("auth sucess");
+    // console.log("auth sucess");
     return user_data as any;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return null;
   }
 }

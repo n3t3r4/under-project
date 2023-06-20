@@ -5,19 +5,25 @@ import { Schedules } from "../components/Schedules";
 import { Clients } from "../components/Clients";
 import { Config } from "../components/Config";
 import { currentUser } from "../components/LoginForm";
-
-const token = localStorage.getItem("token") ?? " ";
+import { getAuthToken, verifyToken } from "../auth";
 
 export function Dashboard() {
+  const [currentBoard, setBoard] = useState(<Schedules />);
+  const [userName, setUserName] = useState(currentUser);
   const redirect = useNavigate();
   useEffect(() => {
-    if (token !== " ") {
+    let isAuthorized = false;
+    const token = getAuthToken();
+    const teste = verifyToken(token).then((data) => {
+      isAuthorized = data;
+    });
+
+    if (token !== " " || isAuthorized === false) {
       redirect("/");
     }
     setUserName(currentUser);
   }, []);
-  const [currentBoard, setBoard] = useState(<Schedules />);
-  const [userName, setUserName] = useState(currentUser);
+
   return (
     <>
       <div className="flex flex-row m-10 shadow-lg rounded-xl">

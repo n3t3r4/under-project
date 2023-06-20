@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-import { log } from "console";
-import { setAuthtoken } from "../auth";
+import { setAuthtoken, verifyToken } from "../auth";
 import { useZorm } from "react-zorm";
 import { loginFormSchema } from "../loginForm.schema";
 
@@ -25,6 +24,7 @@ export function LoginForm() {
       const connect = api.get("/login").then((data) => {
         if (data.data !== null) {
           currentUser = data.data.data.email;
+          redirect("/dashboard");
         }
         return;
       });
@@ -39,10 +39,14 @@ export function LoginForm() {
   const zorm = useZorm("login", loginFormSchema, {
     async onValidSubmit(event) {
       event.preventDefault();
-      login({ email, senha }).then((data) => {
-        setAuthtoken(data.jwt);
-        console.log(localStorage.getItem("token"));
-        redirect("/dashboard");
+      await login({ email, senha }).then((data) => {
+        if (data.jwt !== null) {
+          alert("login realizado com sucesso");
+          setAuthtoken(data.jwt);
+          redirect("/dashboard");
+        } else {
+          alert("email/senha inválidos");
+        }
       });
     },
   });
@@ -59,6 +63,7 @@ export function LoginForm() {
           >
             <input
               name={zorm.fields.email()}
+              placeholder="email"
               className="m-2 pl-3 rounded-lg  outline-none"
               type="email"
               value={email}
@@ -71,6 +76,7 @@ export function LoginForm() {
             })}
             <input
               name={zorm.fields.emailPassword()}
+              placeholder="senha"
               className="m-2 pl-3 rounded-lg  outline-none"
               type="password"
               value={senha}
@@ -84,13 +90,6 @@ export function LoginForm() {
             <button
               className="bg-slate-50 rounded-lg mx-8 my-2 flex justify-center"
               type="submit"
-              // onClick={(event) => {
-              //   event.preventDefault();
-              //   login({ email, senha }).then((data) => {
-              //     setAuthtoken(data.jwt);
-              //     console.log(localStorage.getItem("token"));
-              //   });
-              // }}
             >
               Login
             </button>

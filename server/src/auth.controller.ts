@@ -6,7 +6,7 @@ export const controllerAuth = express.Router();
 controllerAuth.post("/", async (req: Request, res: Response) => {
   const emailPassword = req.body;
   const response = await findAgenciaByEmailPassword(emailPassword);
-  console.log(response);
+  // console.log(response);
   res.json(response);
 });
 
