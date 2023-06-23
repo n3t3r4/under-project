@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { api } from "../api";
+import { api, apiOop } from "../api";
 import { useEffect, useState } from "react";
 
 type clienteType = {
@@ -16,7 +16,7 @@ export function Clients() {
   const [clienteID, setClinteID] = useState(0);
 
   async function getClientes() {
-    const { data } = await api.get("/clientes");
+    const { data } = await apiOop.get("/clientes");
     setClientes(data);
   }
 

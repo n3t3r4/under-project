@@ -4,10 +4,10 @@ import { Container } from "typedi";
 import { controllerConteudo } from "./src/content.controller";
 import * as dotenv from "dotenv";
 import { controllerClientes } from "./src/client.controller";
-import { useContainer } from "class-validator";
-import { createExpressServer } from "routing-controllers";
-import { PrismaClient } from "@prisma/client";
+import { createExpressServer, useContainer } from "routing-controllers";
 import { controllerAuth } from "./src/auth.controller";
+import { ClientControllerClass } from "./src/OOPclient.controller";
+import "reflect-metadata";
 dotenv.config();
 
 const app = express();
@@ -18,21 +18,13 @@ app.use("/clientes", controllerClientes);
 app.use("/login", controllerAuth);
 
 app.listen(8080, () => {
-  console.log("server running");
+  console.log("server 8080 running");
 });
 
-// useContainer(Container);
-// createExpressServer({
-//   controllers: [controllerConteudo],
-// }).listen(8080, () => {
-//   console.log("server running");
-// });
-
-//PRISMA TESTE
-// const prisma = new PrismaClient();
-// async function getContent() {
-//   const response = await prisma.conteudo.findMany();
-//   console.log(response);
-//   return;
-// }
-// getContent();
+useContainer(Container);
+createExpressServer({
+  controllers: [ClientControllerClass],
+  cors: true,
+}).listen(8081, () => {
+  console.log("server 8081 running");
+});

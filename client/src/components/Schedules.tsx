@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FcSearch } from "react-icons/fc";
-import { api } from "../api";
+import { api, apiOop } from "../api";
 import { useEffect, useState } from "react";
 import Select from "react-dropdown-select";
 import { InputText } from "./InputText";
@@ -61,7 +61,7 @@ export function Schedules() {
   }, [clienteID, offset, order]);
 
   async function getClientes() {
-    const { data } = await api.get("/clientes");
+    const { data } = await apiOop.get("/clientes");
     setClientes(data);
   }
 
