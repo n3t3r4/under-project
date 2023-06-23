@@ -6,7 +6,7 @@ import * as dotenv from "dotenv";
 import { controllerClientes } from "./src/client.controller";
 import { createExpressServer, useContainer } from "routing-controllers";
 import { controllerAuth } from "./src/auth.controller";
-import { ClientControllerClass } from "./src/OOPclient.controller";
+import { ClientControllerClass } from "./src/OOP.client.controller";
 import "reflect-metadata";
 dotenv.config();
 
