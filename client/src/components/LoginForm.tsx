@@ -96,6 +96,26 @@ export function LoginForm() {
           </form>
         </div>
       </div>
+      {/* TableLogin */}
+      <br />
+      <br />
+      <div className="flex items-center justify-center">
+        <table className="bg-white border-separate shadow-2xl">
+          <h4 className="text-4xl p-8">Logins válidos</h4>
+          <tr>
+            <th className="bg-blue-100 border text-left px-8 py-4">email</th>
+            <th className="bg-blue-100 border text-left px-8 py-4">senha</th>
+          </tr>
+          <tr>
+            <td className="border px-8 py-4">1@agencia.com</td>
+            <td className="border px-8 py-4">senha</td>
+          </tr>
+          <tr>
+            <td className="border px-8 py-4">2@agencia.com</td>
+            <td className="border px-8 py-4">senha</td>
+          </tr>
+        </table>
+      </div>
     </>
   );
 }
