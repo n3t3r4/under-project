@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api } from "../api";
+import { api, apiMongoDB } from "../api";
 import { setAuthtoken, verifyToken } from "../auth";
 import { useZorm } from "react-zorm";
 import { loginFormSchema } from "../loginForm.schema";
@@ -32,7 +32,7 @@ export function LoginForm() {
   }, []);
 
   async function login({ email, senha }: emailPassword) {
-    const connect = await api.post("/login", { email, senha });
+    const connect = await apiMongoDB.post("/login", { email, senha });
     return connect.data;
   }
 

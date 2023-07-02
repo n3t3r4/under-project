@@ -1,6 +1,8 @@
 /client/node_modules
 /server/node_modules
+/mongo_api/node_modules
 /server/.env
+/mongo_api/.env
 /instructions.md
 
 #Main Branch
