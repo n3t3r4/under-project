@@ -18,3 +18,9 @@ api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
+
+apiMongoDB.interceptors.request.use((config) => {
+  const token = getAuthToken();
+  config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});

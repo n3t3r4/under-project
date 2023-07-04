@@ -21,9 +21,12 @@ export function LoginForm() {
 
   useEffect(() => {
     if (token !== " ") {
-      const connect = api.get("/login").then((data) => {
+      const connect = apiMongoDB.get("/login").then((data) => {
+        console.log(data);
+
         if (data.data !== null) {
           currentUser = data.data.data.email;
+          console.log(currentUser);
           redirect("/dashboard");
         }
         return;
@@ -33,6 +36,8 @@ export function LoginForm() {
 
   async function login({ email, senha }: emailPassword) {
     const connect = await apiMongoDB.post("/login", { email, senha });
+    console.log(connect.data);
+
     return connect.data;
   }
 

@@ -35,4 +35,9 @@ export class AgenciaService {
     const agencia = await this.agenciaRepository.findAgencias(email, senha);
     return agencia;
   }
+
+  async checkAgencia(token: string) {
+    const checking = await this.agenciaRepository.checkAgencia(token);
+    return checking;
+  }
 }
